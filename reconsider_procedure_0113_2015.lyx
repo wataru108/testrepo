@@ -1,0 +1,1336 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+\usepackage{fullpage}
+\end_preamble
+\use_default_options true
+\begin_modules
+eqs-within-sections
+figs-within-sections
+theorems-ams-bytype
+theorems-ams-extended-bytype
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman libertine
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 12
+\spacing double
+\use_hyperref false
+\papersize letterpaper
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plainnat
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+A Computation Procedure for Reconsideration-Proof Equilibrium
+\end_layout
+
+\begin_layout Author
+Wataru Nozawa
+\end_layout
+
+\begin_layout Date
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+today
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+Reconsideration-proof equilibrium is a refinement proposed by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "kocherlakota1996reconsideration"
+
+\end_inset
+
+ of subgame perfect equilibrium that applies to infinite horizon settings
+ in which time inconsistency is important.
+ A procedure for computing such equilibria is provided.
+ The procedure is applicable under an assumption about time-separability
+ of the utility function.
+ The class of problems that satisfy the assumption includes four of the
+ five examples in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "kocherlakota1996reconsideration"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+Reconsideration-proof equilibrium is a refinement proposed by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "kocherlakota1996reconsideration"
+
+\end_inset
+
+ of subgame perfect equilibrium that applies to infinite horizon settings
+ in which time inconsistency is important.
+ To be reconsideration-proof, a strategy must satisfy three properties.
+ First, it must be subgame-perfect.
+ Second, it must have the same continuation value at any histories.
+ Let us call such strategies weakly reconsideration-proof.
+ Accordingly, a continuation value is attached to each weakly reconsideration-pr
+oof strategy.
+ Lastly, the strategy must have the highest continuation value among all
+ the weakly reconsideratin-proof strategies.
+\end_layout
+
+\begin_layout Standard
+It is not easy to find reconsideration-proof strategies.
+ Though 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "kocherlakota1996reconsideration"
+
+\end_inset
+
+ provides a fixed-point characterization of weakly reconsideratin-proof
+ strategies, it does not tell us much about how to find them.
+\end_layout
+
+\begin_layout Standard
+This paper provides a computation procedure which is applicable under an
+ assumption about time-separability of the utility function.
+ The class of problems that satisfy the assumption includes four of the
+ five examples in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "kocherlakota1996reconsideration"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Environment
+\end_layout
+
+\begin_layout Standard
+Time is discrete, and indexed by 
+\begin_inset Formula $t$
+\end_inset
+
+.
+ There is an infinitely lived player.
+\end_layout
+
+\begin_layout Standard
+In each period 
+\begin_inset Formula $t$
+\end_inset
+
+, there are two subperiods.
+ In the first subperiod, a state variable 
+\begin_inset Formula $z_{t}\in Z$
+\end_inset
+
+ is determined, where 
+\begin_inset Formula $Z$
+\end_inset
+
+ is a set of states.
+ In the second subperiod, knowing the determined value of the state variable
+ 
+\begin_inset Formula $z_{t}$
+\end_inset
+
+, the player chooses an action 
+\begin_inset Formula $x_{t}$
+\end_inset
+
+ from a set of actions 
+\begin_inset Formula $X$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+It is natural to think that the state variable 
+\begin_inset Formula $z_{t}$
+\end_inset
+
+ is determined by a passive player.
+ The passive player formulates an expectation 
+\begin_inset Formula $\{\hat{x}_{s}\}_{s\geq t}$
+\end_inset
+
+ on the future actions taken by the infinitely lived player, 
+\begin_inset Formula $\{x_{s}\}_{s\geq t}$
+\end_inset
+
+.
+ The state variable 
+\begin_inset Formula $z_{t}$
+\end_inset
+
+ is determined by
+\begin_inset Formula 
+\[
+z_{t}=\xi\left(\{\hat{x}_{s}\}_{s\geq t}\right),
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\xi$
+\end_inset
+
+ is a mapping from 
+\begin_inset Formula $X^{\infty}$
+\end_inset
+
+ to 
+\begin_inset Formula $Z$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The utility of the infinitely lived player in period 
+\begin_inset Formula $t$
+\end_inset
+
+ is given by
+\begin_inset Formula 
+\[
+U(z_{t},\{x_{s}\}_{s\geq t}),
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $U$
+\end_inset
+
+ is a mapping from 
+\begin_inset Formula $X^{\infty}\times Z$
+\end_inset
+
+ to 
+\begin_inset Formula $\mathbb{R}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+A history is an element of 
+\begin_inset Formula $\bigcup_{t\geq0}X^{t}$
+\end_inset
+
+, where 
+\begin_inset Formula $X^{0}=\{\textrm{\emptyset}\}$
+\end_inset
+
+.
+ An element 
+\begin_inset Formula $h^{t}\in X^{t}$
+\end_inset
+
+ is called a history up to 
+\begin_inset Formula $t$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+A strategy 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ is a mapping from 
+\begin_inset Formula $\bigcup_{t\geq0}X^{t}$
+\end_inset
+
+ to 
+\begin_inset Formula $X$
+\end_inset
+
+.
+ A path of a strategy 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ is an element 
+\begin_inset Formula $\{x_{t}^{\sigma}\}_{t\geq0}$
+\end_inset
+
+ of 
+\begin_inset Formula $X^{\infty}$
+\end_inset
+
+ defined by
+\begin_inset Formula 
+\begin{gather*}
+x_{0}^{\sigma}=\sigma(\emptyset),\text{ and}\\
+\text{for each }t\geq1,\; x_{t}^{\sigma}=\sigma\left(\left\{ x_{s}^{\sigma}\right\} _{0\leq s\leq t-1}\right).
+\end{gather*}
+
+\end_inset
+
+Similarly, a path of a strategy 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ after a history 
+\begin_inset Formula $h^{t-1}$
+\end_inset
+
+ is an element 
+\begin_inset Formula $\{x_{s}^{\sigma|h^{t-1}}\}_{s\geq t}$
+\end_inset
+
+ of 
+\begin_inset Formula $X^{\infty}$
+\end_inset
+
+ defined by
+\begin_inset Formula 
+\begin{gather*}
+x_{t}^{\sigma|h^{t-1}}=\sigma(h^{t-1}),\text{ and}\\
+\text{for each }s\geq t+1,\; x_{s}^{\sigma|h^{t-1}}=\sigma\left(\left\{ h^{t-1},\left\{ x_{\tau}^{\sigma|h^{t-1}}\right\} _{t\leq\tau\leq s-1}\right\} \right).
+\end{gather*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Solution Concepts and Characterization
+\end_layout
+
+\begin_layout Subsection
+Solution Concepts
+\end_layout
+
+\begin_layout Definition
+A strategy 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ is 
+\emph on
+subgame perfect
+\emph default
+ if for any 
+\begin_inset Formula $t$
+\end_inset
+
+, for any history 
+\begin_inset Formula $h^{t-1}$
+\end_inset
+
+ up to 
+\begin_inset Formula $t-1$
+\end_inset
+
+, for any 
+\begin_inset Formula $x\in X$
+\end_inset
+
+,
+\begin_inset Formula 
+\begin{gather*}
+U(z_{t},\{x_{s}^{\sigma|h^{t-1}}\}_{s\geq t})\geq U\left(z_{t},\left\{ x,\{x_{s}^{\sigma|\{h^{t-1},x\}}\}_{s\geq t+1}\right\} \right),
+\end{gather*}
+
+\end_inset
+
+where 
+\begin_inset Formula $z_{t}=\xi\left(\{x_{s}^{\sigma|h^{t-1}}\}_{s\geq t}\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout --Separator--
+
+\end_layout
+
+\begin_layout Definition
+A subgame perfect strategy 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ is 
+\emph on
+weakly reconsideratin-proof
+\emph default
+ if it has the same continuation value at any histories.
+\end_layout
+
+\begin_layout --Separator--
+
+\end_layout
+
+\begin_layout Definition
+A weakly reconsideratin-proof subgame perfect strategy 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ is 
+\emph on
+reconsideration-proof
+\emph default
+ if it has the highest value among all the weakly reconsideratin-proof subgame
+ perfect strategies.
+\end_layout
+
+\begin_layout Subsection
+Characterization
+\end_layout
+
+\begin_layout Standard
+To state the characterization of weakly reconsideratin-proof subgame perfect
+ strategies in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "kocherlakota1996reconsideration"
+
+\end_inset
+
+, define
+\begin_inset Formula 
+\begin{eqnarray*}
+D(V) & = & \{\{x_{t}\}_{t\geq0}|\text{for each }t\geq0,U(\xi(\{x_{s}\}_{s\geq t}),\{x_{s}\}_{s\geq t})=V\},\text{ and}\\
+Z(V) & = & \{\xi(\{x_{t}\}_{t\geq0})|\{x_{t}\}_{t\geq0}\in D(V)\}.
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset citation
+LatexCommand citet
+key "kocherlakota1996reconsideration"
+
+\end_inset
+
+ gave the following characterization of weakly reconsideratin-proof subgame
+ perfect strategies.
+\end_layout
+
+\begin_layout Proposition
+\begin_inset CommandInset citation
+LatexCommand citep
+key "kocherlakota1996reconsideration"
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "pro:Chara"
+
+\end_inset
+
+ There exists a weakly reconsideratin-proof subgame perfect strategy with
+ value 
+\begin_inset Formula $V$
+\end_inset
+
+ if and only if there exists a subset 
+\begin_inset Formula $D^{*}\subseteq D(V)$
+\end_inset
+
+ and a subset 
+\begin_inset Formula $Z^{*}\subseteq Z(V)$
+\end_inset
+
+ such that
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+\begin_inset Formula $Z^{*}=\xi(D^{*})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+For all 
+\begin_inset Formula $x\in X$
+\end_inset
+
+ and all 
+\begin_inset Formula $z\in Z^{*}$
+\end_inset
+
+, there exists 
+\begin_inset Formula $d$
+\end_inset
+
+ in 
+\begin_inset Formula $D^{*}$
+\end_inset
+
+ such that 
+\begin_inset Formula $U(z,x,d)\leq V$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+The characterization does not tell much about how to find such fixed points.
+ In the next section, I specify a subclass of problems and suggest a computation
+ procedure.
+\end_layout
+
+\begin_layout Section
+Class of Problems and Computation Procedure
+\end_layout
+
+\begin_layout Subsection
+Class of Problems
+\end_layout
+
+\begin_layout Standard
+I suggest a procedure for problems that satisfy the following assumption.
+\end_layout
+
+\begin_layout Assumption
+\begin_inset CommandInset label
+LatexCommand label
+name "ass:U"
+
+\end_inset
+
+There exist a constant 
+\begin_inset Formula $\beta$
+\end_inset
+
+ and a function 
+\begin_inset Formula $u:X^{2}\to\mathbb{R}$
+\end_inset
+
+ such that 
+\begin_inset Formula $U(z_{t},\{x_{s}\}_{s\geq t})=(1-\beta)\sum_{s=t}^{\infty}\beta^{s-t}u(x_{s},x_{s+1})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Using the assumption, I can simplify the characterization of weakly reconsiderat
+in-proof subgame perfect strategies.
+ The simplified characterization will lead to a procedure.
+ To state it, define 
+\begin_inset Formula 
+\begin{gather*}
+X_{1}(V)=\{x\in X|\text{there exists }x^{\prime}\in X\text{ such that }u(x,x^{\prime})=V\},\\
+\text{for each }k,\: X_{k+1}(V)=\{x\in X|\text{there exists }x^{\prime}\in X_{k}(V)\text{ such that }u(x,x^{\prime})=V\},\text{ and}\\
+X(V)=\bigcap_{k=1}^{\infty}X_{k}(V).
+\end{gather*}
+
+\end_inset
+
+The next lemma is useful.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:Factor"
+
+\end_inset
+
+For any 
+\begin_inset Formula $x\in X(V)$
+\end_inset
+
+, there exists 
+\begin_inset Formula $x^{\prime}\in X(V)$
+\end_inset
+
+ such that 
+\begin_inset Formula $u(x,x^{\prime})=V$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout --Separator--
+
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:Algo"
+
+\end_inset
+
+
+\begin_inset Formula $x\in X(V)$
+\end_inset
+
+ if and only if there exists 
+\begin_inset Formula $\{x_{t}\}_{t\geq0}\in D(V)$
+\end_inset
+
+ and 
+\begin_inset Formula $t\geq0$
+\end_inset
+
+ such that 
+\begin_inset Formula $x_{0}=x$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Suppose there exists 
+\begin_inset Formula $\{x_{t}\}_{t\geq0}\in D(V)$
+\end_inset
+
+ and 
+\begin_inset Formula $t\geq0$
+\end_inset
+
+ such that 
+\begin_inset Formula $x_{0}=x$
+\end_inset
+
+.
+ Then, by definition of 
+\begin_inset Formula $D(V)$
+\end_inset
+
+, for any 
+\begin_inset Formula $t\geq0$
+\end_inset
+
+, 
+\begin_inset Formula $u(x_{t},x_{t+1})=V$
+\end_inset
+
+.
+ This implies that for any 
+\begin_inset Formula $k\geq1$
+\end_inset
+
+, 
+\begin_inset Formula $x\in X_{k}(V)$
+\end_inset
+
+.
+ Therefore, 
+\begin_inset Formula $x\in X(V)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Suppose 
+\begin_inset Formula $x\in X(V)$
+\end_inset
+
+.
+ Set 
+\begin_inset Formula $x_{0}=x$
+\end_inset
+
+.
+ By Lemma 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lem:Factor"
+
+\end_inset
+
+, I can inductively construct a sequence 
+\begin_inset Formula $\{x_{t}\}_{t\geq0}$
+\end_inset
+
+ such that for any 
+\begin_inset Formula $t\geq0$
+\end_inset
+
+, 
+\begin_inset Formula $u(x_{t},x_{t+1})=V$
+\end_inset
+
+.
+ Clearly, 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\{x_{t}\}_{t\geq0}\in D(V)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Now, the simplified characterization is stated as a proposition.
+\end_layout
+
+\begin_layout Proposition
+\begin_inset CommandInset label
+LatexCommand label
+name "pro:NewChara"
+
+\end_inset
+
+There exists a weakly reconsideratin-proof subgame perfect strategy with
+ value 
+\begin_inset Formula $V$
+\end_inset
+
+ if and only if for all 
+\begin_inset Formula $x\in X$
+\end_inset
+
+, there exists 
+\begin_inset Formula $x^{\prime}$
+\end_inset
+
+ in 
+\begin_inset Formula $X(V)$
+\end_inset
+
+ such that 
+\begin_inset Formula $u(x,x')\leq V$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+By Proposition 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "pro:Chara"
+
+\end_inset
+
+, it is sufficient to show the equivalence between the following two statements.
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+there exists a subset 
+\begin_inset Formula $D^{*}\subseteq D(V)$
+\end_inset
+
+ and a subset 
+\begin_inset Formula $Z^{*}\subseteq Z(V)$
+\end_inset
+
+ such that
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+\begin_inset Formula $Z^{*}=\xi(D^{*})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+For all 
+\begin_inset Formula $x\in X$
+\end_inset
+
+ and all 
+\begin_inset Formula $z\in Z^{*}$
+\end_inset
+
+, there exists 
+\begin_inset Formula $d$
+\end_inset
+
+ in 
+\begin_inset Formula $D^{*}$
+\end_inset
+
+ such that 
+\begin_inset Formula $U(z,x,d)\leq V$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+for all 
+\begin_inset Formula $x\in X$
+\end_inset
+
+, there exists 
+\begin_inset Formula $x^{\prime}$
+\end_inset
+
+ in 
+\begin_inset Formula $X(V)$
+\end_inset
+
+ such that 
+\begin_inset Formula $u(x,x')\leq V$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Proof
+First, since 
+\begin_inset Formula $U$
+\end_inset
+
+ doesn't depend on 
+\begin_inset Formula $z$
+\end_inset
+
+ by Assumption 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "ass:U"
+
+\end_inset
+
+, the first statement is equivalent to
+\begin_inset Formula 
+\[
+\text{for all }x\in X,\text{\text{ }there exists }d\in D(V)\text{ such that }U(x,d)\leq V.
+\]
+
+\end_inset
+
+Next, using the time separability of 
+\begin_inset Formula $U$
+\end_inset
+
+, it is equivalent to
+\begin_inset Formula 
+\begin{gather*}
+\text{for all }x\in X,\text{\text{ }there exists }\{x_{t}\}_{t\geq0}\in D(V)\\
+\text{ such that }(1-\beta)u(x,x_{0})+\beta U(\{x_{t}\}_{t\geq1})\leq V.
+\end{gather*}
+
+\end_inset
+
+Since for any 
+\begin_inset Formula $\{x_{t}\}_{t\geq0}\in D(V)$
+\end_inset
+
+, 
+\begin_inset Formula $U(\{x_{t}\}_{t\geq1})=V$
+\end_inset
+
+, it is equivalent to
+\begin_inset Formula 
+\[
+\text{for all }x\in X,\text{\text{ }there exists }\{x_{t}\}_{t\geq0}\in D(V)\text{ such that }u(x,x_{0})\leq V.
+\]
+
+\end_inset
+
+By Lemma 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lem:Algo"
+
+\end_inset
+
+, it is equivalent to the second statement.
+\end_layout
+
+\begin_layout Subsection
+Computation Procedure
+\end_layout
+
+\begin_layout Standard
+The computation procedure for reconsideration-proof equilibrium is the following.
+\end_layout
+
+\begin_layout Enumerate
+Compute 
+\begin_inset Formula $X(V)$
+\end_inset
+
+ for each 
+\begin_inset Formula $V$
+\end_inset
+
+, by calculating 
+\begin_inset Formula $\{X_{k}(V)\}_{k\geq1}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Find the largest 
+\begin_inset Formula $V$
+\end_inset
+
+ such that for all 
+\begin_inset Formula $x\in X$
+\end_inset
+
+, there exists 
+\begin_inset Formula $x^{\prime}$
+\end_inset
+
+ in 
+\begin_inset Formula $X(V)$
+\end_inset
+
+ such that 
+\begin_inset Formula $u(x,x^{\prime})\leq V$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Proposition 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "pro:NewChara"
+
+\end_inset
+
+ assures that weakly reconsideratin-proof subgame perfect strategies achieve
+ the largest 
+\begin_inset Formula $V$
+\end_inset
+
+ are reconsideration-proof.
+ In the next section, I apply the procedure for the examples in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "kocherlakota1996reconsideration"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Examples
+\end_layout
+
+\begin_layout Example
+(Example 1 in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "kocherlakota1996reconsideration"
+
+\end_inset
+
+) Let 
+\begin_inset Formula $u(x,x^{\prime})=x-x^{\prime}$
+\end_inset
+
+ and 
+\begin_inset Formula $X=[0,1]$
+\end_inset
+
+.
+ Then, 
+\begin_inset Formula 
+\begin{align*}
+X_{1}(V) & =\{x\in[0,1]|\text{there exists }x^{\prime}\in[0,1]\text{ such that }x-x^{\prime}=V\}\\
+ & =\{x\in[0,1]|x-V\in[0,1]\}\\
+ & =[0,1]\cap[V,1+V],
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+X_{k}(V) & =\{x\in[0,1]|\text{there exists }x^{\prime}\in X_{k-1}(V)\text{ such that }x-x^{\prime}=V\}\\
+ & =\{x\in[0,1]|x-V\in X_{k-1}(V)\}\\
+ & =[0,1]\cap\bigcap_{k=1}[kV,1+kV],
+\end{align*}
+
+\end_inset
+
+and
+\begin_inset Formula 
+\[
+X(V)=\begin{cases}
+\emptyset & \text{for }V\neq0,\\
+{}[0,1] & \text{for }V=0.
+\end{cases}
+\]
+
+\end_inset
+
+Since if 
+\begin_inset Formula $V=0$
+\end_inset
+
+, for any 
+\begin_inset Formula $x\in X$
+\end_inset
+
+, 
+\begin_inset Formula $u(x,x)=0=V$
+\end_inset
+
+, the value of reconsideration-proof equilibrium is 
+\begin_inset Formula $V=0$
+\end_inset
+
+.
+ Any strategies that satisfy for each 
+\begin_inset Formula $t\geq1$
+\end_inset
+
+, 
+\begin_inset Formula $\sigma(h^{t-1})=h_{t-1}^{t-1}$
+\end_inset
+
+ is reconsideration-proof.
+\end_layout
+
+\begin_layout --Separator--
+
+\end_layout
+
+\begin_layout Example
+(Example 2 and 3 in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "kocherlakota1996reconsideration"
+
+\end_inset
+
+) Let 
+\begin_inset Formula $u(x,x^{\prime})=\sqrt{xx^{\prime}}$
+\end_inset
+
+ and 
+\begin_inset Formula $X=[0,1]$
+\end_inset
+
+.
+ Note that 
+\begin_inset Formula $V\in[0,1]$
+\end_inset
+
+.
+ Then, 
+\begin_inset Formula 
+\begin{align*}
+X_{1}(V) & =\{x\in[0,1]|\text{there exists }x^{\prime}\in[0,1]\text{ such that }\sqrt{xx^{\prime}}=V\}\\
+ & =\{x\in[0,1]|\sqrt{x}\in[V,\infty)\}\\
+ & =[V^{2},1],
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+X_{k}(V) & =\{x\in[0,1]|\text{there exists }x^{\prime}\in X_{k-1}(V)\text{ such that }\sqrt{xx^{\prime}}=V\}\\
+ & =\{x\in[0,1]|x-V\in X_{k-1}(V)\}\\
+ & =[V^{2},1],
+\end{align*}
+
+\end_inset
+
+and
+\begin_inset Formula 
+\[
+X(V)=[V^{2},1].
+\]
+
+\end_inset
+
+Since if 
+\begin_inset Formula $V=1$
+\end_inset
+
+, for any 
+\begin_inset Formula $x\in X$
+\end_inset
+
+, 
+\begin_inset Formula $u(x,1)=\sqrt{x}\leq1=V$
+\end_inset
+
+, the value of reconsideration-proof equilibrium is 
+\begin_inset Formula $V=1$
+\end_inset
+
+.
+ The strategy that satisfy for each 
+\begin_inset Formula $t\geq0$
+\end_inset
+
+, 
+\begin_inset Formula $\sigma(h^{t-1})=1$
+\end_inset
+
+ is reconsideration-proof.
+\end_layout
+
+\begin_layout Example
+(Example 4 in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "kocherlakota1996reconsideration"
+
+\end_inset
+
+) Let 
+\begin_inset Formula $u(x,x^{\prime})=x-2x^{\prime}$
+\end_inset
+
+ and 
+\begin_inset Formula $X=[0,1]$
+\end_inset
+
+.
+ Then, 
+\begin_inset Formula 
+\begin{align*}
+X_{1}(V) & =\{x\in[0,1]|\text{there exists }x^{\prime}\in[0,1]\text{ such that }x-2x^{\prime}=V\}\\
+ & =\{x\in[0,1]|(x-V)/2\in[0,1]\}\\
+ & =[0,1]\cap[V,2+V],
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+X_{k}(V) & =\{x\in[0,1]|\text{there exists }x^{\prime}\in X_{k-1}(V)\text{ such that }x-2x^{\prime}=V\}\\
+ & =\{x\in[0,1]|(x-V)/2\in X_{k-1}(V)\}\\
+ & =[0,1]\cap\bigcap_{k=1}[(2^{k}-1)V,2^{k}+(2^{k}-1)V],
+\end{align*}
+
+\end_inset
+
+and
+\begin_inset Formula 
+\[
+X(V)=\begin{cases}
+\emptyset & \text{for }V>0\text{ or }V<-1,\\
+{}[0,1] & \text{for }-1\leq V\leq0.
+\end{cases}
+\]
+
+\end_inset
+
+Since for any 
+\begin_inset Formula $V\in[-1,0]$
+\end_inset
+
+, for any 
+\begin_inset Formula $x\in X$
+\end_inset
+
+, 
+\begin_inset Formula $u(x,1)\leq V$
+\end_inset
+
+, the value of reconsideration-proof equilibrium is 
+\begin_inset Formula $V=0$
+\end_inset
+
+.
+ Any strategies that satisfy for each 
+\begin_inset Formula $t\geq1$
+\end_inset
+
+, 
+\begin_inset Formula $\sigma(h^{t-1})=h_{t-1}^{t-1}/2$
+\end_inset
+
+ is reconsideration-proof.
+\end_layout
+
+\begin_layout --Separator--
+
+\end_layout
+
+\begin_layout Example
+(The example in Section 5 in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "kocherlakota1996reconsideration"
+
+\end_inset
+
+) Let 
+\begin_inset Formula $u(x,x^{\prime})=y(x/2+(1-x^{\prime})/(1+r))$
+\end_inset
+
+, and 
+\begin_inset Formula $X=[0,1].$
+\end_inset
+
+ For a simple exposition, set 
+\begin_inset Formula $y=1$
+\end_inset
+
+.
+ Then,
+\begin_inset Formula 
+\begin{eqnarray*}
+ &  & X_{1}(V)\\
+ & = & \{x\in[0,1]|\text{there exists }x^{\prime}\in[0,1]\text{ such that }x/2+(1-x^{\prime})/(1+r)=V\}\\
+ & = & \{x\in[0,1]|(x/2-V)(1+r)+1\in[0,1]\}\\
+ & = & [0,1]\cap[2(V-1/(1+r)),2V],
+\end{eqnarray*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+ &  & X_{k}(V)\\
+ & = & \{x\in[0,1]|\text{there exists }x^{\prime}\in X_{k-1}(V)\text{ such that }x/2+(1-x^{\prime})/(1+r)=V\}\\
+ & = & \{x\in[0,1]|(x/2-V)/(1+r)+1\in X_{k-1}(V)\}\\
+ & = & [0,1]\cap\bigcap_{k=1}\left[\left(\left(\tfrac{2}{1+r}\right)^{k}-1\right)2\tfrac{V(1+r)-1}{1-r},\left(\tfrac{2}{1+r}\right)^{k}\left(1+2\tfrac{V(1+r)-1}{1-r}\right)-2\tfrac{V(1+r)-1}{1-r}\right],
+\end{eqnarray*}
+
+\end_inset
+
+and
+\begin_inset Formula 
+\[
+X(V)=\begin{cases}
+\emptyset & \text{for }V>\frac{1}{1+r}\text{ or }V<\frac{1}{2},\\
+{}[0,1] & \text{for }\frac{1}{2}\leq V\leq\frac{1}{1+r}.
+\end{cases}
+\]
+
+\end_inset
+
+For any 
+\begin_inset Formula $V\in[\frac{1}{2},\frac{1}{1+r}]$
+\end_inset
+
+, for any 
+\begin_inset Formula $x\in X$
+\end_inset
+
+, 
+\begin_inset Formula $u(x,1)=x/2\leq V$
+\end_inset
+
+.
+ Therefore, 
+\begin_inset Formula $V=\frac{1}{1+r}$
+\end_inset
+
+ is the value of reconsideration-proof equilibrium.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "reconsider_procedure"
+options "plainnat"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
